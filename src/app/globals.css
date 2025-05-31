@@ -105,5 +105,12 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+    /* Example: Apply a modern sans-serif font */
+    font-family: "Arial", sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    /* Example: Apply a different font or style for headings */
+    font-family: "Arial", sans-serif;
+    font-weight: bold;
   }
 }

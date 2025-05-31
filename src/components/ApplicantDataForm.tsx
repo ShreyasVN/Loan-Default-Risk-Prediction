@@ -1,4 +1,3 @@
-
 'use client';
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ApplicantData, employmentLengthOptions, homeOwnershipOptions, loanTermOptions } from "@/types";
-import { Briefcase, CalendarDays, DollarSign, Home, Loader2, UserCircle, FileText, TrendingUp } from "lucide-react";
+import { Briefcase, CalendarDays, DollarSign, Home, Loader2, UserCircle, FileText, TrendingUp, Wallet, Scale } from "lucide-react"; // Added Wallet and Scale icons
 import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
@@ -58,7 +57,7 @@ export function ApplicantDataForm({ onSubmit, isModelUploaded, isLoading }: Appl
   return (
     <Card className="w-full shadow-lg">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 font-headline">
+        <CardTitle className="flex items-center gap-2 font-headline text-primary">
           <FileText className="h-6 w-6 text-primary" />
           Applicant Data
         </CardTitle>
@@ -75,9 +74,9 @@ export function ApplicantDataForm({ onSubmit, isModelUploaded, isLoading }: Appl
                 name="applicantName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="flex items-center gap-1"><UserCircle className="h-4 w-4 text-muted-foreground" />Applicant Name</FormLabel>
+                    <FormLabel className="flex items-center gap-1 text-muted-foreground"><UserCircle className="h-4 w-4 text-primary" />Applicant Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g., John Doe" {...field} />
+                      <Input placeholder="e.g., John Doe" {...field} spellCheck={false} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -88,7 +87,7 @@ export function ApplicantDataForm({ onSubmit, isModelUploaded, isLoading }: Appl
                 name="loanAmount"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="flex items-center gap-1"><DollarSign className="h-4 w-4 text-muted-foreground" />Loan Amount ($)</FormLabel>
+                    <FormLabel className="flex items-center gap-1 text-muted-foreground"><Wallet className="h-4 w-4 text-primary" />Loan Amount ($)</FormLabel>
                     <FormControl>
                       <Input type="number" placeholder="e.g., 10000" {...field} />
                     </FormControl>
@@ -101,7 +100,7 @@ export function ApplicantDataForm({ onSubmit, isModelUploaded, isLoading }: Appl
                 name="annualIncome"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="flex items-center gap-1"><DollarSign className="h-4 w-4 text-muted-foreground" />Annual Income ($)</FormLabel>
+                    <FormLabel className="flex items-center gap-1 text-muted-foreground"><DollarSign className="h-4 w-4 text-primary" />Annual Income ($)</FormLabel>
                     <FormControl>
                       <Input type="number" placeholder="e.g., 50000" {...field} />
                     </FormControl>
@@ -114,9 +113,9 @@ export function ApplicantDataForm({ onSubmit, isModelUploaded, isLoading }: Appl
                 name="creditScore"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="flex items-center gap-1"><TrendingUp className="h-4 w-4 text-muted-foreground" />Credit Score</FormLabel>
+                    <FormLabel className="flex items-center gap-1 text-muted-foreground"><Scale className="h-4 w-4 text-primary" />Credit Score</FormLabel>
                     <FormControl>
-                      <Input type="number" placeholder="e.g., 700" {...field} min="300" max="850" />
+                      <Input type="number" placeholder="e.g., 700" {...field} min="300" max="850" spellCheck={false} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -127,7 +126,7 @@ export function ApplicantDataForm({ onSubmit, isModelUploaded, isLoading }: Appl
                 name="loanTerm"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="flex items-center gap-1"><CalendarDays className="h-4 w-4 text-muted-foreground" />Loan Term</FormLabel>
+                    <FormLabel className="flex items-center gap-1 text-muted-foreground"><CalendarDays className="h-4 w-4 text-primary" />Loan Term</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value?.toString()}>
                       <FormControl>
                         <SelectTrigger>
@@ -135,7 +134,7 @@ export function ApplicantDataForm({ onSubmit, isModelUploaded, isLoading }: Appl
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {loanTermOptions.map(option => (
+                        {loanTermOptions.map((option: { value: number; label: string }) => (
                           <SelectItem key={option.value} value={option.value.toString()}>{option.label}</SelectItem>
                         ))}
                       </SelectContent>
@@ -149,7 +148,7 @@ export function ApplicantDataForm({ onSubmit, isModelUploaded, isLoading }: Appl
                 name="employmentLength"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="flex items-center gap-1"><Briefcase className="h-4 w-4 text-muted-foreground" />Employment Length</FormLabel>
+                    <FormLabel className="flex items-center gap-1 text-muted-foreground"><Briefcase className="h-4 w-4 text-primary" />Employment Length</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
@@ -157,7 +156,7 @@ export function ApplicantDataForm({ onSubmit, isModelUploaded, isLoading }: Appl
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {employmentLengthOptions.map(option => (
+                        {employmentLengthOptions.map((option: string) => (
                           <SelectItem key={option} value={option}>{option}</SelectItem>
                         ))}
                       </SelectContent>
@@ -171,7 +170,7 @@ export function ApplicantDataForm({ onSubmit, isModelUploaded, isLoading }: Appl
                 name="homeOwnership"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="flex items-center gap-1"><Home className="h-4 w-4 text-muted-foreground" />Home Ownership</FormLabel>
+                    <FormLabel className="flex items-center gap-1 text-muted-foreground"><Home className="h-4 w-4 text-primary" />Home Ownership</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
@@ -179,7 +178,7 @@ export function ApplicantDataForm({ onSubmit, isModelUploaded, isLoading }: Appl
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {homeOwnershipOptions.map(option => (
+                        {homeOwnershipOptions.map((option: string) => (
                           <SelectItem key={option} value={option}>{option}</SelectItem>
                         ))}
                       </SelectContent>
@@ -189,14 +188,19 @@ export function ApplicantDataForm({ onSubmit, isModelUploaded, isLoading }: Appl
                 )}
               />
             </div>
-            <Button type="submit" disabled={!isModelUploaded || isLoading} className="w-full md:w-auto bg-accent hover:bg-accent/90 text-accent-foreground">
-              {isLoading ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Assessing...
-                </>
-              ) : "Assess Risk"}
-            </Button>
+            <Button
+  type="submit"
+  disabled={!isModelUploaded || isLoading}
+  className="w-full md:w-auto bg-primary text-primary-foreground transition-colors duration-200 hover:bg-primary/90"
+>
+  {isLoading ? (
+    <>
+      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+      Assessing...
+    </>
+  ) : "Assess Risk"}
+</Button>
+
             {!isModelUploaded && (
               <p className="text-sm text-destructive mt-2">
                 Please upload a prediction model first to enable risk assessment.
